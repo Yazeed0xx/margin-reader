@@ -1,1 +1,1 @@
-export const POC_NAME = 'AdonisJS v7 multi-client POC' as const
+export const POC_NAME = 'My App 4' as const
