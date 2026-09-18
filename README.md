@@ -115,17 +115,61 @@ The reference opens below its paragraph. The video player loads only when reques
 
 ![Expanded inline YouTube source with writer commentary, a load-player button, and a return-to-essay control](docs/screenshots/inline-source.png)
 
-### Write in the document
-
-Edit the text directly, attach sources to a paragraph, and preview before publishing.
-
-![Writing desk showing a demo draft, paragraph controls, autosave status, and source attachment](docs/screenshots/writing-desk.png)
-
 ### Read in Arabic on mobile
 
 The interface and article support right-to-left reading at a narrow screen width.
 
 <img src="docs/screenshots/mobile-arabic.png" alt="Arabic article and interface on a mobile screen" width="390" />
+
+## For writers
+
+The prototype includes a writer’s workspace as well as the reader view. To try it,
+sign in with `maya@demo.test` / `MarginDemo123!`, then open **Drafts** and select
+“Draft: a thought still taking shape.” Choose **Write** to start a new essay instead.
+
+### 1. Compose in the document
+
+Enter a title, choose English or Arabic, and write directly in the document. Clicking
+a paragraph reveals its controls: change it to a heading, quote, code block, or list;
+move it up or down; or remove it.
+
+Within ordinary paragraphs, **Enter** starts a new paragraph and **Shift+Enter** adds
+a line break. **Continue writing** also adds a paragraph. Valid drafts autosave after
+a short pause; the toolbar shows the save state, and **Save draft** is available for
+an immediate save. Draft changes remain private until published.
+
+![Writer editing a private draft with paragraph controls, source attachment, and save status](docs/screenshots/writing-desk.png)
+
+### 2. Attach a source where it belongs
+
+Focus the paragraph that needs a reference and choose **Add a source**. The source
+form opens directly beneath that paragraph, keeping the surrounding writing visible.
+
+1. Paste an article, paper, or video URL into **Source URL** and choose **Fetch source**.
+2. Add an optional **Why this source matters** note to explain its relevance to readers.
+3. For YouTube, set **Start at (seconds)**. A timestamp in the URL can supply the initial value.
+4. When permitted source text is available, an optional exact-quote field is also offered.
+5. Choose **Add to paragraph**, then let the draft save. Fetching the URL alone does
+   not attach it. Use **Cancel** to leave the paragraph unchanged.
+
+![Writer attaching a YouTube reference inline, with its URL, relevance note, 15-second start time, and Add to paragraph button](docs/screenshots/writer-add-source.png)
+
+Sources are attached to paragraphs. The prototype uses structured text blocks rather
+than a full rich-text editor with references anchored to selected words.
+
+### 3. Preview, then publish
+
+Choose **Preview** to see the current draft laid out for reading. Source buttons work
+inside this preview, so you can check the writer’s note, open a reference, and load a
+video before publishing. Choose **Edit** to return to writing.
+
+![Writer previewing the essay with source citations and the Edit button available in the toolbar](docs/screenshots/writer-preview.png)
+
+Once the draft is saved, use **Publish essay** at the bottom of the document. For an
+already published essay, new edits stay private until you choose **Publish changes**.
+**Read live essay** opens the published version; **Unpublish** removes it from public
+reading while retaining the draft. In local development, publishing makes it visible
+in your local app—it does not deploy the app to the internet.
 
 ## Stack
 
