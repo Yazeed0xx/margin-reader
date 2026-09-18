@@ -27,4 +27,18 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // Session
   SESSION_DRIVER: Env.schema.enum.optional(['cookie', 'memory'] as const),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring @adonisjs/queue
+  |----------------------------------------------------------
+  */
+  QUEUE_DRIVER: Env.schema.enum.optional(['database'] as const),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for configuring the limiter package
+  |----------------------------------------------------------
+  */
+  LIMITER_STORE: Env.schema.enum.optional(['database', 'memory'] as const),
 })

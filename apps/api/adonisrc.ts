@@ -1,3 +1,4 @@
+import { indexPolicies } from '@adonisjs/bouncer'
 import { indexEntities } from '@adonisjs/core'
 import { defineConfig } from '@adonisjs/core/app'
 import { generateRegistry } from '@tuyau/core/hooks'
@@ -28,6 +29,8 @@ export default defineConfig({
     () => import('@adonisjs/core/commands'),
     () => import('@adonisjs/lucid/commands'),
     () => import('@adonisjs/session/commands'),
+    () => import('@adonisjs/bouncer/commands'),
+    () => import('@adonisjs/queue/commands'),
   ],
 
   /*
@@ -53,6 +56,9 @@ export default defineConfig({
     () => import('@adonisjs/cors/cors_provider'),
     () => import('@adonisjs/auth/auth_provider'),
     () => import('#providers/api_provider'),
+    () => import('@adonisjs/bouncer/bouncer_provider'),
+    () => import('#providers/queue_lifecycle_provider'),
+    () => import('@adonisjs/limiter/limiter_provider')
   ],
 
   /*
@@ -67,6 +73,10 @@ export default defineConfig({
     () => import('#start/routes'),
     () => import('#start/kernel'),
     () => import('#start/validator'),
+    {
+      file: () => import('#start/scheduler'),
+      environment: ['web'],
+    },
   ],
 
   /*
@@ -106,6 +116,6 @@ export default defineConfig({
   metaFiles: [],
 
   hooks: {
-    init: [indexEntities({ transformers: { enabled: true } }), generateRegistry()],
+    init: [indexEntities({ transformers: { enabled: true } }), generateRegistry(), indexPolicies()],
   },
 })

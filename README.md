@@ -1,6 +1,46 @@
-# AdonisJS Multi-Client Starter
+# Margin / هامش — a vibe-coded article-reading prototype
 
-A pnpm and Turborepo starter with an authenticated, database-backed AdonisJS API shared by React web, Expo mobile, and Electron desktop clients.
+Margin is a **vibe-coded app** built to prototype an idea: a calmer way to read and
+share articles, essays, and research without losing your place when exploring a source.
+It is an experiment developed through AI-assisted coding and iteration, intended to
+explore the product and UX rather than present a finished, production-ready platform.
+
+The central idea is simple: **keep the article and its references in one reading flow.**
+Sources expand beneath the paragraph that references them. Videos play inline when the
+reader chooses to load them, and closing a source returns the reader to the citation.
+
+## What the prototype explores
+
+- A mobile-first web experience for thoughtful essays, ideas, and research notes.
+- Inline source previews, writer commentary, and YouTube videos with timestamps.
+- A document-style writing surface with autosave, inline source attachment, preview,
+  and publishing.
+- English and Arabic content, including right-to-left and mixed-direction articles.
+- Bookmarks, following writers, and saved reading progress.
+
+External content is displayed according to the source permissions and provider's
+embedding restrictions. Some links offer a preview and an original-source link rather
+than their full text.
+
+The article experience currently lives in the web app. The repository also contains
+mobile and desktop scaffolding inherited from its AdonisJS multi-client starter.
+
+## Try it with demo content
+
+After setup, seed eight published articles and two private drafts:
+
+```bash
+pnpm --filter @poc/api exec node ace db:seed --files database/seeders/demo_article_seeder.ts
+```
+
+Examples include short essays, a research notebook, code, lists, video references,
+long-form reading, and Arabic writing. See [demo accounts and seed instructions](docs/demo-data.md).
+
+## Stack
+
+React, shadcn/ui with Base UI, and Tailwind CSS power the web interface. AdonisJS,
+Lucid/SQLite, and a resource-processing queue power the backend. The pnpm/Turborepo
+workspace shares typed API contracts through Tuyau.
 
 ## Architecture
 
@@ -26,57 +66,23 @@ The API is the contract source of truth. `@poc/api-client` imports the generated
 
 ## Setup
 
-### Create a new project
-
-Click [Use this template](https://github.com/Yazeed0xx/adonisjs-monorepo-starter/generate)
-on GitHub, give the new repository a name, and clone it. Or use an authenticated
-GitHub CLI from the folder where you keep your projects:
-
-```bash
-gh repo create restaurant-app --template Yazeed0xx/adonisjs-monorepo-starter --private --clone
-cd restaurant-app
-```
-
-Then run:
+From your local checkout:
 
 ```bash
 corepack enable
 pnpm setup:project
 ```
 
-Setup asks for a project name, display name, and iOS/Android app identifier. It
-updates the root package name, mobile identity, desktop product name, page titles,
-and shared demo label. It creates the API `.env`, installs the locked dependencies,
-generates an API key when missing, runs SQLite migrations, and generates the API
-contracts. Use an identifier you own, such as `com.yourcompany.restaurant`; the
-`com.example` default is a development placeholder.
+The setup script installs dependencies, creates the API `.env` when missing, generates
+an application key, runs SQLite migrations, and generates typed API contracts. Existing
+`.env` files and nonempty keys are preserved. The repository already records its project
+identity; rerunning setup resumes preparation without renaming it.
 
-No dependencies need to be installed before running setup. If Corepack is missing,
-install it with `npm install --global corepack` and then run `corepack enable`.
-The repository pins the pnpm version. Use `pnpm setup:project`, not `pnpm setup`
-(which is pnpm's own environment setup command).
+If Corepack is missing, install it with `npm install --global corepack`. Use
+`pnpm setup:project`, not `pnpm setup` (which is pnpm's own command). Never commit `.env`
+files. See `pnpm setup:project --help` for setup options.
 
-For a noninteractive setup:
-
-```bash
-pnpm setup:project --name restaurant-app --display-name "Restaurant App" --app-id com.yourcompany.restaurant
-```
-
-Existing `.env` files and nonempty API keys are preserved. Setup records the chosen
-identity in `package.json` under `starterProject`; rerunning it resumes installation
-and API preparation without renaming the project or overwriting later UI edits.
-If installation fails, fix the reported error and run the same command again.
-Do not run first-time setup in your master starter repository.
-
-Internal `@poc/*` workspace names stay unchanged so imports, filters, and the lockfile
-remain consistent. New projects are independent copies; starter updates do not
-automatically propagate to them. Commit the generated project configuration, but
-never commit `.env` files.
-
-For configuration only, add `--configure-only`; later run `pnpm setup:project` to
-complete installation and API preparation. See `pnpm setup:project --help` for options.
-
-### Start building
+### Run the prototype
 
 Start the backend:
 
@@ -106,6 +112,8 @@ pnpm dev:web
 pnpm dev:mobile
 pnpm dev:desktop
 ```
+
+`pnpm dev` and `pnpm dev:api` also start the resource queue worker, so source and video previews process automatically.
 
 Client-only commands do not start the API. Run `pnpm dev:api` in another terminal when the client needs a local backend, or use `pnpm dev` to start everything.
 
@@ -207,4 +215,9 @@ An optional GitHub Actions definition is available at `docs/ci.example.yml`. Cop
 `.github/workflows/ci.yml` when CI is needed; pushing that workflow over HTTPS requires a token
 with the `workflow` scope.
 
-The repository is intentionally a starter. Product-specific domain packages, deployment, and release workflows should be added only when required by the application built from it.
+This is a vibe-coded prototype under active experimentation. The current features are
+here to help try the reading and writing idea, gather feedback, and discover what needs
+to change. Production deployment and real-reader validation remain separate work.
+
+Implementation notes: [backend](docs/publishing-backend.md),
+[web experience](docs/publishing-phase-6.md), and [beta engineering](docs/publishing-phase-7.md).

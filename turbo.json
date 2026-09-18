@@ -14,10 +14,15 @@
     "PORT",
     "SESSION_DRIVER",
     "TZ",
-    "VITE_API_URL"
+    "VITE_API_URL",
+    "DB_DATABASE",
+    "QUEUE_DRIVER",
+    "LIMITER_STORE"
   ],
   "tasks": {
-    "generate": { "outputs": [".adonisjs/**"] },
+    "generate": {
+      "outputs": [".adonisjs/**"]
+    },
     "dev": {
       "dependsOn": ["@poc/api#generate"],
       "cache": false,
@@ -39,6 +44,17 @@
     "test": {
       "dependsOn": ["@poc/api#generate"],
       "outputs": []
+    },
+    "@poc/api#dev": {
+      "dependsOn": ["@poc/api#generate"],
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["ELECTRON_LINUX_COMPAT"],
+      "with": ["@poc/api#worker"]
+    },
+    "@poc/api#worker": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

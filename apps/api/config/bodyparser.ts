@@ -27,6 +27,8 @@ const bodyParserConfig = defineConfig({
    * Config for the JSON parser.
    */
   json: {
+    // Preserve code indentation and intentional whitespace; validators normalize prose.
+    trimWhitespaces: false,
     /**
      * Normalize empty string values to null.
      */

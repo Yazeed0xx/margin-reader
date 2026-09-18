@@ -7,6 +7,104 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class ArticleReferenceSchema extends BaseModel {
+  static $columns = ['articleRevisionId', 'blockId', 'commentary', 'createdAt', 'id', 'referenceKey', 'resourceId', 'selectedQuote', 'videoStartSeconds'] as const
+  $columns = ArticleReferenceSchema.$columns
+  @column()
+  declare articleRevisionId: number
+  @column()
+  declare blockId: string
+  @column()
+  declare commentary: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare referenceKey: string
+  @column()
+  declare resourceId: number
+  @column()
+  declare selectedQuote: string | null
+  @column()
+  declare videoStartSeconds: number | null
+}
+
+export class ArticleReportSchema extends BaseModel {
+  static $columns = ['articleId', 'createdAt', 'details', 'id', 'reason', 'reporterId', 'resolvedAt', 'reviewNote', 'reviewedBy', 'revisionId', 'status', 'updatedAt'] as const
+  $columns = ArticleReportSchema.$columns
+  @column()
+  declare articleId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare details: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare reason: string
+  @column()
+  declare reporterId: number
+  @column.dateTime()
+  declare resolvedAt: DateTime | null
+  @column()
+  declare reviewNote: string | null
+  @column()
+  declare reviewedBy: string | null
+  @column()
+  declare revisionId: number
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class ArticleRevisionSchema extends BaseModel {
+  static $columns = ['articleId', 'contentJson', 'createdAt', 'id', 'language', 'revisionNumber', 'searchText', 'title'] as const
+  $columns = ArticleRevisionSchema.$columns
+  @column()
+  declare articleId: number
+  @column()
+  declare contentJson: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare language: 'ar' | 'en'
+  @column()
+  declare revisionNumber: number
+  @column()
+  declare searchText: string
+  @column()
+  declare title: string
+}
+
+export class ArticleSchema extends BaseModel {
+  static $columns = ['authorId', 'createdAt', 'draftRevisionId', 'id', 'lockVersion', 'publishedAt', 'publishedRevisionId', 'removalReason', 'removedAt', 'updatedAt'] as const
+  $columns = ArticleSchema.$columns
+  @column()
+  declare authorId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare draftRevisionId: number | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare lockVersion: number
+  @column.dateTime()
+  declare publishedAt: DateTime | null
+  @column()
+  declare publishedRevisionId: number | null
+  @column()
+  declare removalReason: string | null
+  @column.dateTime()
+  declare removedAt: DateTime | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class AuthAccessTokenSchema extends BaseModel {
   static $columns = ['abilities', 'createdAt', 'expiresAt', 'hash', 'id', 'lastUsedAt', 'name', 'tokenableId', 'type', 'updatedAt'] as const
   $columns = AuthAccessTokenSchema.$columns
@@ -32,9 +130,197 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class BookmarkSchema extends BaseModel {
+  static $columns = ['articleId', 'createdAt', 'id', 'userId'] as const
+  $columns = BookmarkSchema.$columns
+  @column()
+  declare articleId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare userId: number
+}
+
+export class FollowSchema extends BaseModel {
+  static $columns = ['createdAt', 'followerId', 'id', 'writerId'] as const
+  $columns = FollowSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare followerId: number
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare writerId: number
+}
+
+export class QueueJobSchema extends BaseModel {
+  static $columns = ['acquiredAt', 'data', 'dedupAt', 'dedupId', 'dedupTtl', 'error', 'executeAt', 'finishedAt', 'id', 'queue', 'score', 'status', 'workerId'] as const
+  $columns = QueueJobSchema.$columns
+  @column()
+  declare acquiredAt: bigint | number | null
+  @column()
+  declare data: string
+  @column()
+  declare dedupAt: bigint | number | null
+  @column()
+  declare dedupId: string | null
+  @column()
+  declare dedupTtl: bigint | number | null
+  @column()
+  declare error: string | null
+  @column()
+  declare executeAt: bigint | number | null
+  @column()
+  declare finishedAt: bigint | number | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column()
+  declare queue: string
+  @column()
+  declare score: bigint | number | null
+  @column()
+  declare status: string
+  @column()
+  declare workerId: string | null
+}
+
+export class QueueScheduleSchema extends BaseModel {
+  static $columns = ['createdAt', 'cronExpression', 'everyMs', 'fromDate', 'id', 'lastRunAt', 'name', 'nextRunAt', 'payload', 'runCount', 'runLimit', 'status', 'timezone', 'toDate'] as const
+  $columns = QueueScheduleSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare cronExpression: string | null
+  @column()
+  declare everyMs: bigint | number | null
+  @column.dateTime()
+  declare fromDate: DateTime | null
+  @column({ isPrimary: true })
+  declare id: string
+  @column.dateTime()
+  declare lastRunAt: DateTime | null
+  @column()
+  declare name: string
+  @column.dateTime()
+  declare nextRunAt: DateTime | null
+  @column()
+  declare payload: string
+  @column()
+  declare runCount: number
+  @column()
+  declare runLimit: number | null
+  @column()
+  declare status: string
+  @column()
+  declare timezone: string
+  @column.dateTime()
+  declare toDate: DateTime | null
+}
+
+export class RateLimitSchema extends BaseModel {
+  static $columns = ['expire', 'key', 'points'] as const
+  $columns = RateLimitSchema.$columns
+  @column()
+  declare expire: bigint | number | null
+  @column({ isPrimary: true })
+  declare key: string
+  @column()
+  declare points: number
+}
+
+export class ReadingProgressSchema extends BaseModel {
+  static $columns = ['articleId', 'blockId', 'blockProgress', 'createdAt', 'id', 'lockVersion', 'revisionId', 'updatedAt', 'userId'] as const
+  $columns = ReadingProgressSchema.$columns
+  @column()
+  declare articleId: number
+  @column()
+  declare blockId: string | null
+  @column()
+  declare blockProgress: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare lockVersion: number
+  @column()
+  declare revisionId: number | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
+export class ResourceAccessSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'resourceId', 'userId'] as const
+  $columns = ResourceAccessSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare resourceId: number
+  @column()
+  declare userId: number
+}
+
+export class ResourceSchema extends BaseModel {
+  static $columns = ['contentText', 'createdAt', 'creator', 'description', 'displayPolicy', 'expiresAt', 'failureCode', 'fetchedAt', 'id', 'kind', 'language', 'processingGeneration', 'processingStatus', 'provider', 'providerId', 'resolvedUrl', 'rightsEvidence', 'siteName', 'thumbnailUrl', 'title', 'updatedAt', 'url'] as const
+  $columns = ResourceSchema.$columns
+  @column()
+  declare contentText: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare creator: string | null
+  @column()
+  declare description: string | null
+  @column()
+  declare displayPolicy: 'metadata' | 'embed' | 'full_content'
+  @column.dateTime()
+  declare expiresAt: DateTime | null
+  @column()
+  declare failureCode: string | null
+  @column.dateTime()
+  declare fetchedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare kind: 'unknown' | 'article' | 'research' | 'video' | 'pdf'
+  @column()
+  declare language: string | null
+  @column()
+  declare processingGeneration: number
+  @column()
+  declare processingStatus: 'pending' | 'ready' | 'limited' | 'failed'
+  @column()
+  declare provider: string | null
+  @column()
+  declare providerId: string | null
+  @column()
+  declare resolvedUrl: string | null
+  @column()
+  declare rightsEvidence: string | null
+  @column()
+  declare siteName: string | null
+  @column()
+  declare thumbnailUrl: string | null
+  @column()
+  declare title: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare url: string
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = ['bio', 'createdAt', 'email', 'fullName', 'id', 'interfaceLanguage', 'password', 'readingLanguage', 'updatedAt'] as const
   $columns = UserSchema.$columns
+  @column()
+  declare bio: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
@@ -43,8 +329,12 @@ export class UserSchema extends BaseModel {
   declare fullName: string | null
   @column({ isPrimary: true })
   declare id: number
+  @column()
+  declare interfaceLanguage: 'ar' | 'en'
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare readingLanguage: 'ar' | 'en' | 'both'
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }
