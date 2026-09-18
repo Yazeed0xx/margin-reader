@@ -25,50 +25,19 @@ than their full text.
 The article experience currently lives in the web app. The repository also contains
 mobile and desktop scaffolding inherited from its AdonisJS multi-client starter.
 
-## Try it with demo content
-
-After setup, seed eight published articles and two private drafts:
-
-```bash
-pnpm --filter @poc/api exec node ace db:seed --files database/seeders/demo_article_seeder.ts
-```
-
-Examples include short essays, a research notebook, code, lists, video references,
-long-form reading, and Arabic writing. See [demo accounts and seed instructions](docs/demo-data.md).
-
-## Stack
-
-React, shadcn/ui with Base UI, and Tailwind CSS power the web interface. AdonisJS,
-Lucid/SQLite, and a resource-processing queue power the backend. The pnpm/Turborepo
-workspace shares typed API contracts through Tuyau.
-
-## Architecture
-
-```text
-Adonis routes + Vine validators + controller responses
-                         |
-                         v
-              generated Tuyau registry
-                         |
-                         v
-                  @poc/api-client
-                  /       |       \
-                 v        v        v
-               web      mobile   desktop
-```
-
-The API is the contract source of truth. `@poc/api-client` imports the generated registry and exposes both a direct typed client and a TanStack Query adapter. Turbo generates the registry before development, builds, type checks, and tests, including filtered commands.
-
 ## Requirements
 
+- Git
 - Node.js 24 or newer
 - pnpm 11.22.0 through Corepack
 
 ## Setup
 
-From your local checkout:
+Clone the public repository and prepare local development:
 
 ```bash
+git clone https://github.com/Yazeed0xx/margin-reader.git
+cd margin-reader
 corepack enable
 pnpm setup:project
 ```
@@ -95,6 +64,91 @@ In another terminal, start the web app:
 ```bash
 pnpm dev:web
 ```
+
+Open **[http://localhost:5173](http://localhost:5173)** in your browser. Keep both
+terminals running. The API uses port 3333; `pnpm dev:api` also starts the worker that
+fetches article and video previews. You do not need to start the mobile or desktop apps.
+
+### Add demo articles
+
+In a third terminal, from the repository root:
+
+```bash
+pnpm --filter @poc/api exec node ace db:seed --files database/seeders/demo_article_seeder.ts
+```
+
+Refresh the web app to see eight published articles and two private drafts. The seed
+includes research notes, code, lists, video references, long essays, and Arabic content.
+Rerunning it preserves existing articles and does not add duplicates. Source previews
+may take a moment to process; an internet connection is required to fetch external sources.
+
+Sign in with **`maya@demo.test` / `MarginDemo123!`** to try writing, drafts, saved essays,
+and following. These credentials are for seeded local demo data. You can also create
+your own account. More accounts are listed in [demo-data.md](docs/demo-data.md).
+
+### Try the reading and writing flow
+
+1. Open an essay from **Explore**. Try “Watch a moment, then return to the thought”
+   for videos or “A research notebook” for a paper reference.
+2. Select **Source** beneath a paragraph. Its preview opens in the article. For a
+   video, select **Load YouTube player**; select **Continue the essay** to collapse it.
+3. Sign in, open **Drafts**, and choose the seeded private draft. Click a paragraph
+   to reveal its writing controls. Use **Add a source** to attach a URL in place.
+4. Changes autosave. Use **Preview** to inspect the reader experience, then
+   **Publish essay** when ready to make the saved draft visible in your local app.
+5. Use the language button in the header to try the Arabic interface. Article text
+   keeps its own language and direction.
+
+## Screenshots
+
+Actual screenshots of the running prototype with seeded demo content.
+
+### Read an essay
+
+A single reading column keeps the article at the center of the page.
+
+![Desktop article reader showing the title, author, and opening paragraphs](docs/screenshots/reader.png)
+
+### Explore a source in place
+
+The reference opens below its paragraph. The video player loads only when requested.
+
+![Expanded inline YouTube source with writer commentary, a load-player button, and a return-to-essay control](docs/screenshots/inline-source.png)
+
+### Write in the document
+
+Edit the text directly, attach sources to a paragraph, and preview before publishing.
+
+![Writing desk showing a demo draft, paragraph controls, autosave status, and source attachment](docs/screenshots/writing-desk.png)
+
+### Read in Arabic on mobile
+
+The interface and article support right-to-left reading at a narrow screen width.
+
+<img src="docs/screenshots/mobile-arabic.png" alt="Arabic article and interface on a mobile screen" width="390" />
+
+## Stack
+
+React, shadcn/ui with Base UI, and Tailwind CSS power the web interface. AdonisJS,
+Lucid/SQLite, and a resource-processing queue power the backend. The pnpm/Turborepo
+workspace shares typed API contracts through Tuyau.
+
+## Architecture
+
+```text
+Adonis routes + Vine validators + controller responses
+                         |
+                         v
+              generated Tuyau registry
+                         |
+                         v
+                  @poc/api-client
+                  /       |       \
+                 v        v        v
+               web      mobile   desktop
+```
+
+The API is the contract source of truth. `@poc/api-client` imports the generated registry and exposes both a direct typed client and a TanStack Query adapter. Turbo generates the registry before development, builds, type checks, and tests, including filtered commands.
 
 ## Development
 
