@@ -1,0 +1,10 @@
+{
+  "extends": "@poc/tsconfig/node.json",
+  "compilerOptions": {
+    "outDir": "dist-main",
+    "rootDir": "electron",
+    "lib": ["ES2023", "DOM"],
+    "types": ["node"]
+  },
+  "include": ["electron"]
+}

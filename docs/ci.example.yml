@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: UTC
+      PORT: 3333
+      HOST: localhost
+      NODE_ENV: development
+      LOG_LEVEL: error
+      APP_NAME: starter-api-ci
+      APP_KEY: starter-ci-key-that-is-not-used-in-production
+      APP_URL: http://localhost:3333
+      CORS_ORIGINS: http://localhost:5173,http://localhost:5174
+      SESSION_DRIVER: cookie
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.22.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify

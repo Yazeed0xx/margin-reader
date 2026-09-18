@@ -1,0 +1,35 @@
+{
+  "name": "adonis-tuyau-multiclient-poc",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup:project": "node scripts/setup-project.mjs",
+    "test:setup": "node --test scripts/setup-project.test.mjs",
+    "test:lint": "node --test scripts/adonis-lint.test.mjs",
+    "dev": "turbo dev",
+    "dev:api": "turbo dev --filter=@poc/api",
+    "dev:web": "turbo dev --filter=@poc/web",
+    "dev:mobile": "turbo dev --filter=@poc/mobile",
+    "dev:desktop": "turbo dev --filter=@poc/desktop",
+    "generate": "turbo run generate --filter=@poc/api",
+    "build": "turbo build",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "lint": "oxlint --deny-warnings",
+    "lint:fix": "oxlint --fix --deny-warnings",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt --write .",
+    "verify": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.63.0",
+    "oxlint": "1.78.0",
+    "turbo": "^2.10.11",
+    "typescript": "~6.0.3"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@11.22.0"
+}

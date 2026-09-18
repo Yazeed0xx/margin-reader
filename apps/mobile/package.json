@@ -1,0 +1,30 @@
+{
+  "name": "@poc/mobile",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "expo start",
+    "start": "expo start",
+    "build": "expo export --platform android --output-dir dist",
+    "typecheck": "tsc --noEmit",
+    "android": "expo start --android",
+    "ios": "expo start --ios"
+  },
+  "dependencies": {
+    "@poc/api-client": "workspace:*",
+    "@poc/shared": "workspace:*",
+    "@tanstack/react-query": "^5.102.8",
+    "@tuyau/react-query": "^1.1.0",
+    "expo": "~57.0.19",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3"
+  },
+  "devDependencies": {
+    "@poc/tsconfig": "workspace:*",
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  }
+}

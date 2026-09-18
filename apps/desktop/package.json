@@ -1,0 +1,33 @@
+{
+  "name": "@poc/desktop",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist-main/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"tsc -p tsconfig.main.json --watch\" \"vite\" \"wait-on dist-main/main.js http://localhost:5174 && node scripts/dev-electron.mjs\"",
+    "build": "rimraf dist-main && tsc -p tsconfig.main.json && tsc --noEmit && vite build",
+    "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc --noEmit"
+  },
+  "dependencies": {
+    "@poc/api-client": "workspace:*",
+    "@poc/shared": "workspace:*",
+    "@tanstack/react-query": "^5.102.8",
+    "@tuyau/react-query": "^1.1.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@poc/tsconfig": "workspace:*",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
+    "concurrently": "^9.2.1",
+    "electron": "^44.1.1",
+    "rimraf": "^6.1.3",
+    "typescript": "~6.0.3",
+    "vite": "^8.2.2",
+    "wait-on": "^9.0.1"
+  }
+}

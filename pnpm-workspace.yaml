@@ -1,0 +1,27 @@
+packages:
+  - apps/*
+  - packages/*
+
+allowBuilds:
+  '@swc/core': true
+  better-sqlite3: true
+  electron: true
+  esbuild: true
+
+# Expo 57 pins React 19.2.3 while its CLI pulls react-dom 19.2.8.
+peerDependencyRules:
+  allowedVersions:
+    react: 19.2.3
+
+minimumReleaseAgeExclude:
+  - '@expo/cli@57.0.21'
+  - '@expo/fingerprint@0.20.12'
+  - '@expo/router-server@57.0.9'
+  - babel-preset-expo@57.0.10
+  - electron@44.1.1
+  - expo-asset@57.0.16
+  - expo-constants@57.0.17
+  - expo-font@57.0.3
+  - expo-modules-core@57.0.15
+  - expo-modules-jsi@57.0.7
+  - expo@57.0.19

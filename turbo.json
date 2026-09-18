@@ -1,0 +1,44 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["oxfmt.config.ts", "oxlint.config.ts", "packages/tsconfig/*.json"],
+  "globalEnv": [
+    "APP_KEY",
+    "APP_NAME",
+    "APP_URL",
+    "CORS_ORIGINS",
+    "EXPO_PUBLIC_API_URL",
+    "HOST",
+    "LOG_LEVEL",
+    "NODE_ENV",
+    "POC_API_URL",
+    "PORT",
+    "SESSION_DRIVER",
+    "TZ",
+    "VITE_API_URL"
+  ],
+  "tasks": {
+    "generate": { "outputs": [".adonisjs/**"] },
+    "dev": {
+      "dependsOn": ["@poc/api#generate"],
+      "cache": false,
+      "persistent": true,
+      "passThroughEnv": ["ELECTRON_LINUX_COMPAT"]
+    },
+    "build": {
+      "dependsOn": ["^build", "@poc/api#generate"],
+      "outputs": ["build/**", "dist/**"]
+    },
+    "@poc/desktop#build": {
+      "dependsOn": ["^build", "@poc/api#generate"],
+      "outputs": ["dist/**", "dist-main/**"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build", "@poc/api#generate"],
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["@poc/api#generate"],
+      "outputs": []
+    }
+  }
+}
